@@ -1,0 +1,21 @@
+image:
+  file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - johnpapa.winteriscoming
+    - vscode-icons-team.vscode-icons
+    - esbenp.prettier-vscode
+    - naumovs.color-highlight
+    - dsznajder.es7-react-js-snippets
+    - wakatime.vscode-wakatime
+    - asciidoctor.asciidoctor-vscode
+
+tasks:
+  - name: Use Node 12.18.3
+  - init: nvm use
+
+ports:
+  - port: 3000 # react app
+    visibility: public
+    onOpen: open-preview
