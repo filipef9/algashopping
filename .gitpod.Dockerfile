@@ -14,6 +14,6 @@ RUN \
   sudo cp -Rf fonts/* /usr/share/fonts &&\
   fc-cache -f -v
 
-RUN bash -c 'VERSION="12.18.3" && nvm install $VERSION'
+RUN bash -c 'VERSION="12.18.3" && source $HOME/.nvm/nvm.sh && nvm install $VERSION'
 
 USER gitpod
