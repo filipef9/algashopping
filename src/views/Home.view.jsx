@@ -1,8 +1,9 @@
 import React from 'react'
+import App from '../components/App'
 
 const HomeView = () => {
   return (
-    <div>HomeView</div>
+    <div><App /></div>
   )
 }
 

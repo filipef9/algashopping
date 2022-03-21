@@ -10,6 +10,7 @@ vscode:
     - dsznajder.es7-react-js-snippets
     - wakatime.vscode-wakatime
     - asciidoctor.asciidoctor-vscode
+    - jpoissonnier.vscode-styled-components
 
 tasks:
   - name: Install Yarn
