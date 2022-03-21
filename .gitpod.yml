@@ -11,14 +11,6 @@ vscode:
     - wakatime.vscode-wakatime
     - asciidoctor.asciidoctor-vscode
 
-tasks:
-  - name: Use Node 12.18.3
-    init: |
-      source $HOME/.nvm/nvm.sh
-      nvm install 12.18.3
-      nvm use
-      npm i -g yarn@1.22.5
-
 ports:
   - port: 3000 # react app
     visibility: public
