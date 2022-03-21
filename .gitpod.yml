@@ -11,6 +11,13 @@ vscode:
     - wakatime.vscode-wakatime
     - asciidoctor.asciidoctor-vscode
 
+tasks:
+  - name: Install Yarn
+    init: npm i -g yarn
+  - name: Initialize React App
+    init: yarn
+    command: yarn start
+
 ports:
   - port: 3000 # react app
     visibility: public
