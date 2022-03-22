@@ -1,15 +1,38 @@
-import React, { useState } from 'react'
-import Checkbox from '../../shared/Checkbox'
-import LineChart from '../../shared/LineChart/LineChart'
-import AppContainer from '../AppContainer/AppContainer'
+import React, { useEffect, useState } from 'react'
+import LineChart from '../../shared/LineChart'
+import AppContainer from '../AppContainer'
 import AppHeader from '../AppHeader'
+import ShoppingList from '../ShoppingList'
 import { Container, Wrapper } from './App.styles'
+import productsMock from '../../mocks/productsList.json';
 
 const App = () => {
-  const [lettuce, setLettuce] = useState(true);
-  const [healthy, setHealthy] = useState(20);
-
   const colors = ['#62cbc6', '#00abad', '#00b5bc', '#006073', '#004d61'];
+
+  const [products, setProducts] = useState(productsMock.products);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
+  useEffect(() => {
+    const selectedProductsUpdated = products.filter(product => product.checked);
+    setSelectedProducts(selectedProductsUpdated);
+  }, [products]);
+
+  const handleOnToggle = (productId) => {
+    const productsUpdated = [...products];
+    const productIndex = productsUpdated.findIndex(product => product.id === productId);
+
+    const productToUpdateFound = productIndex || productIndex >= 0;
+    if (productToUpdateFound) {
+      const productToUpdate = productsUpdated[productIndex];
+      productsUpdated[productIndex] = {
+        ...productToUpdate,
+        checked: !productToUpdate.checked
+      }
+
+      setProducts(productsUpdated);
+
+    }
+  };
 
   return (
     <Wrapper>
@@ -17,15 +40,19 @@ const App = () => {
         <AppHeader />
         <AppContainer
           leftColumn={
-            <div>
-              produtos disponíveis:
-              <Checkbox title="Alface" value={lettuce} onClick={() => setLettuce(!lettuce)} />
-              <Checkbox title="Arroz" value={false} />
-            </div>}
+            <ShoppingList 
+              title="Produtos disponíveis"
+              products={products}
+              onToggle={handleOnToggle}
+            />
+          }
           middleColumn={
-            <div>
-              sua lista de compras:
-            </div>}
+            <ShoppingList 
+              title="Sua lista de compras" 
+              products={selectedProducts}
+              onToggle={handleOnToggle}
+            />
+          }
           rightColumn={
             <div>
               estatísticas:
