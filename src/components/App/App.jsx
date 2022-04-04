@@ -1,45 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import LineChart from '../../shared/LineChart'
 import AppContainer from '../AppContainer'
 import AppHeader from '../AppHeader'
 import ShoppingList from '../ShoppingList'
 import { Container, Wrapper } from './App.styles'
-import productsMock from '../../mocks/productsList.json';
 import calculatePercentage from '../../utils/calculatePercentage'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAllProducts, selectSelectedProducts, selectSelectedProductsTotalPrice} from '../../store/Products/Products.selectors'
+import { selectProduct } from '../../store/Products/Products.actions'
 
 const App = () => {
   const colors = ['#62cbc6', '#00abad', '#00b5bc', '#006073', '#004d61'];
 
-  const [products, setProducts] = useState(productsMock.products);
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const selectedProductsUpdated = products.filter(product => product.checked);
-    setSelectedProducts(selectedProductsUpdated);
-  }, [products]);
+  const products = useSelector(selectAllProducts);
+  const selectedProducts = useSelector(selectSelectedProducts);
+  const totalPrice = useSelector(selectSelectedProductsTotalPrice);
 
-  useEffect(() => {
-    const updatedTotalPrice = selectedProducts.reduce((sum, product) => sum + product.price, 0);
-    setTotalPrice(updatedTotalPrice);
-  }, [selectedProducts]);
-
-  const handleOnToggle = (productId) => {
-    const productsUpdated = [...products];
-    const productIndex = productsUpdated.findIndex(product => product.id === productId);
-
-    const productToUpdateFound = productIndex || productIndex >= 0;
-    if (productToUpdateFound) {
-      const productToUpdate = productsUpdated[productIndex];
-      productsUpdated[productIndex] = {
-        ...productToUpdate,
-        checked: !productToUpdate.checked
-      }
-
-      setProducts(productsUpdated);
-
-    }
-  };
+  const handleOnToggle = (productId) => dispatch(selectProduct(productId))
 
   return (
     <Wrapper>

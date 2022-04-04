@@ -1,8 +1,12 @@
 import React from 'react'
 import { Lista, Title, Wrapper } from './ShoppingList.styles'
 import Checkbox from '../../shared/Checkbox'
+// import { useSelector } from 'react-redux'
+// import { selectAllProducts } from '../../store/Products/Products.selectors'
 
 const ShoppingList = ({ title, products = [], onToggle }) => {
+
+  // const productsXXX = useSelector(selectAllProducts);
 
   return (
     <Wrapper>
